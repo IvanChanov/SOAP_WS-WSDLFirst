@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+xmlns="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://FreeMonkeys.com/ProductOrderSchema"
+xmlns:tns="http://FreeMonkeys.com/ProductOrderSchema" 
+xmlns:xsd="http://FreeMonkeys.com/Shema"
+elementFormDefault="qualified">
+
+	<element name="getOrdersRequest" type="tns:OrdersRequest" />
+
+	<complexType name="OrdersRequest">
+		<sequence>
+			<element name="customerID" type="int" />
+		</sequence>
+	</complexType>
+	
+	
+	<element name="getOrdersResponse" type="tns:OrdersResponse" />
+
+	<complexType name="OrdersResponse">
+		<sequence>
+			<element name="order" type = "tns:Order" maxOccurs="unbounded" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
+	
+	<element name="createdOrderRequest" type="tns:CreatedOrderReques" />
+
+	<complexType name="CreatedOrderReques">
+		<sequence>
+			<element name="customerID" type="int" />
+			<element name="order" type="tns:Order" />
+		</sequence>
+	</complexType>
+	
+	
+	<element name="createdOrderResponse" type="tns:CreatedOrderResponse" />
+
+	<complexType name="CreatedOrderResponse">
+		<sequence>
+			<element name="result" type="boolean" />
+		</sequence>
+	</complexType>
+	
+	
+	<element name="product" type="tns:Product" />
+
+	<complexType name="Product">
+		<sequence>
+			<element name="id" type="string"/>
+			<element name="name" type="string" />
+			<element name="description" type="string" />
+			<element name="quantity" type="int" />
+		</sequence>
+	</complexType>
+	
+	
+	<element name="order" type="tns:Order" />
+
+	<complexType name="Order">
+		<sequence>
+			<element name="customerID" type="int" />
+			<element name="product" type="tns:Product" maxOccurs="unbounded"/>
+			<element name="id" type="string"/>
+			<element name="GiftWrapped" type="boolean"/>
+			<element name = "shippingCompany" type = "tns:ShippingCompanys" />
+			<element name = "paymentMethod" type="tns:PaymentMethod" />
+		</sequence>
+	</complexType>
+
+	<complexType name="PaymentMethod">
+		<choice>
+			<element name="cash" type="tns:CashOnDelivery" />
+			<element name="creditCard" type="tns:CreditCard" />
+		</choice>
+	</complexType>
+
+	<complexType name="CashOnDelivery">
+			<sequence>
+			<element name="amount" type="int" />
+			</sequence>
+	</complexType>
+	
+	<complexType name="CreditCard">
+		<all>
+			<element name="BankName" type="string" />
+			<element name="Cardtype" type="string" />
+		</all>
+	</complexType>
+	
+		<complexType name="ShippingCompanys">
+		<all>
+			<element name="name" type="string" />
+			<element name="deliverySpeed" type="string" />
+		</all>
+	</complexType>
+	
+
+</schema>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:tns="http://www.freeMonkeysWS.com" 
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+name="CustomerOrdersService" 
+targetNamespace="http://www.freeMonkeysWS.com"
+xmlns:xs="http://FreeMonkeys.com/ProductOrderSchema" >
+  
+  
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.freeMonkeysWS.com">
+      
+      <xsd:import namespace="http://FreeMonkeys.com/ProductOrderSchema"
+				schemaLocation="ProductOrder.xsd" />
+
+    </xsd:schema>
+  </wsdl:types>
+  
+		<wsdl:message name="getOrdersRequest">
+		<wsdl:part element="xs:getOrdersRequest" name="parameters" />
+		</wsdl:message>
+	
+		<wsdl:message name="getOrdersResponse">
+		<wsdl:part element="xs:getOrdersResponse" name="parameters" />
+		</wsdl:message>
+
+		<wsdl:message name="createdOrderRequest">
+		<wsdl:part element="xs:createdOrderRequest" name="parameters" />
+		</wsdl:message>
+	
+		<wsdl:message name="createdOrderResponse">
+		<wsdl:part element="xs:createdOrderResponse" name="parameters" />
+		</wsdl:message>
+		
+		
+  
+  <wsdl:portType name="CustomerOrdersPortType">
+		<wsdl:operation name="getOrders">
+			<wsdl:input message="tns:getOrdersRequest" name="getOrdersRequest"/>
+			<wsdl:output message="tns:getOrdersResponse"  name="getOrdersResponse"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="createdOrders">
+			<wsdl:input message="tns:createdOrderRequest"  name="createdOrderRequest"/>
+			<wsdl:output message="tns:createdOrderResponse"  name= "createdOrderResponse"/>
+		</wsdl:operation>
+  </wsdl:portType>
+  
+  
+  
+  <wsdl:binding name="CustomerOrdersServiceSoapBinding" type="tns:CustomerOrdersPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+   
+    <wsdl:operation name="getOrders">
+      <soap:operation soapAction="http://www.freeMonkeysWS.com/NewOperation"/>
+      <wsdl:input name="getOrdersRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      
+      <wsdl:output name="getOrdersResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+        <wsdl:operation name="createdOrders">
+      <soap:operation soapAction="http://www.freeMonkeysWS.com/NewOperation"/>
+      <wsdl:input name="createdOrderRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      
+      <wsdl:output name="createdOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  
+  
+  <wsdl:service name="CustomerOrdersService">
+    <wsdl:port binding="tns:CustomerOrdersServiceSoapBinding" name="CustomerOrderPort">
+      <soap:address location="http://localhost:8080/wsdlProjectWS/services/customerOrdersService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
